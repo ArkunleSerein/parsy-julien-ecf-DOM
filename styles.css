@@ -1,0 +1,71 @@
+
+#noteTable.hidden {
+  display: none;
+}
+
+/* Réinitialisation des marges et des rembourrages par défaut */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Times New Roman', Times, serif;
+  background-color: #f4f4f4;
+}
+h1{
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  text-align: center;
+  margin-top: 20px;
+}
+
+#modeButton,
+#addRowButton,
+#deleteAllRowsButton {
+  display: block;
+  margin: 20px auto;
+  padding: 5px;
+  border-radius: 15px;
+} 
+.note-input::-webkit-inner-spin-button,
+.note-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+table {
+  width: 50%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 8px 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+table, th, td {
+  border-radius: 15px;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+.eleve-input,
+.note-input {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #8c9894;
+  border-radius: 3px;
+}
+
+.note-input {
+  width: 100px;
+}
+
+
