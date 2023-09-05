@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let isTableVisible = false;
 
     let noteData = []; // Tableau pour stocker les données des notes
-    let colorData = []; // Tableau pour stocker les données des couleurs
+    let colorData = Array.from({ length: noteInputs.length }, () => "green");
 
     // Cacher le tableau au chargement initial
     noteTable.style.display = "none";
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function applyColors() {
         for (let i = 0; i < noteInputs.length; i++) {
             const input = noteInputs[i];
-            input.style.backgroundColor = colorData[i] || "";
+            input.style.backgroundColor = colorData[i] || "green";
             input.value = ""; // Effacer la valeur en mode couleur
         }
     }
@@ -61,6 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
             input.style.backgroundColor = ""; // Effacer la couleur en mode note
         }
     }
+
 
     noteInputs.forEach(function (input, index) {
         input.addEventListener("input", function () {
@@ -78,28 +79,42 @@ document.addEventListener("DOMContentLoaded", function () {
                 } else {
                     colorData[index] = "";
                 }
+
+                noteData[index] = noteValue;
+                updateTableMode();
+
+                // Passer au champ d'entrée suivant 
+                const nextInput = noteInputs[index + 1];
+                if (nextInput) {
+                    nextInput.focus();
+                } else {
+                    noteInputs[0].focus();
+                }
+
+
             } else {
                 colorData[index] = "";
             }
-
-            noteData[index] = noteValue;
-            updateTableMode();
-
-            input.addEventListener("keydown", function (event) {
-                if (event.keyCode === 13) { // Vérifier si la touche "Enter" a été enfoncée
-                    event.preventDefault(); // Empêcher le comportement par défaut (passage à la ligne)
-                    
-                    // Passer au champ d'entrée suivant (ou ajouter une nouvelle ligne)
-                    const nextInput = noteInputs[index + 1];
-                    if (nextInput) {
-                        nextInput.focus();
-                    } else {
-                        // Si le prochain champ n'existe pas, vous pouvez ajouter une nouvelle ligne ici
-                    }
-                }
-            });
         });
     });
 
     updateTableMode();
+
+    noteInputs.forEach((input, index) => {
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Supprimer";
+        deleteButton.addEventListener("click", function () {
+            input.remove();
+            noteData.splice(index, 1);
+            colorData.splice(index, 1);
+            updateTableMode();
+        });
+
+        input.parentNode.appendChild(deleteButton);
+        deleteButton.style.borderRadius = "25px";
+        deleteButton.style.padding = "5px";
+    });
 });
+
+
+
