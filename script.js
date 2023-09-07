@@ -1,23 +1,24 @@
-// *Création de la fonction du tableau
+//* Création de la fonction du tableau
 document.addEventListener("DOMContentLoaded", function () {
-    // On appelle le boutton "modeButton" avec son ID html qui va définir le choix couleur ou note.
+    // On appel le boutton "modeButton" avec son ID html qui va définir le choix couleur ou note.
     const modeButton = document.getElementById("modeButton");
-    // On appelle le tableau de note avec son ID html.
+    // On appel le tableau de note avec son ID html.
     const noteTable = document.getElementById("noteTable");
-    // On appelle .note-input pour lui définir des fonctions par la suite.
+    // On appel .note-input pour lui définir des fonctions par la suite.
     const noteInputs = document.querySelectorAll(".note-input");
 
     // On cache le tableau avant la sélection du mode
     let notationMode = "hidden"; 
     let isTableVisible = false;
 
-    let noteData = []; // Crée un tableau pour stocker les données des notes
+    // Crée un tableau pour stocker les données des notes
+    let noteData = []; 
     let colorData = Array.from({ length: noteInputs.length }, () => "green"); // On défini la couleur par défaut en vert pour les noteInputs
 
     // Cache le tableau au chargement initial
     noteTable.style.display = "none";
 
-    // *On crée la fonction pour rendre visible le tableau après avoir choisi le mode et le prompt de choix.
+    //* On crée la fonction pour rendre visible le tableau après avoir choisi le mode et le prompt de choix.
     modeButton.addEventListener("click", function () {
         if (!isTableVisible) {
             // Afficher le tableau après le premier clic
@@ -30,11 +31,12 @@ document.addEventListener("DOMContentLoaded", function () {
         if (choice === "note" || choice === "couleur") {
             activateTable(choice);
         } else {
+            // Si aucun choix n'est rentré alors il y aura une Alerte "choix invalide"
             alert("Choix invalide");
         }
     });
 
-    // *création de la fonction qui va ajouter le color-mode ou le supprimer.
+    //* création de la fonction qui va ajouter le color-mode ou le supprimer.
     function activateTable(choice) {
         notationMode = choice;
 
@@ -47,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
         updateTableMode(); // mets à jour le tableau
     }
 
-    // * Création de la fonction qui mets à jour le tableau selon le choix.
+    //* Création de la fonction qui mets à jour le tableau selon le choix.
     function updateTableMode() {
         if (notationMode === "couleur") {
             applyColors();
@@ -100,13 +102,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (nextInput) {
                     nextInput.focus();
                 } else {
+                    // on reviens à l'index 0 quand on arrive à la fin du tableau.
                     noteInputs[0].focus();
                 }
-
-
-            } else {
-                colorData[index] = "";
-            }
+            } 
         });
     });
 
