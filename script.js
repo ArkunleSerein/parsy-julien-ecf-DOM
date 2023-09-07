@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let isTableVisible = false;
 
     let noteData = []; // Tableau pour stocker les données des notes
-    let colorData = Array.from({ length: noteInputs.length }, () => "green");
+    let colorData = Array.from({ length: noteInputs.length }, () => "green"); // 
 
     // Cacher le tableau au chargement initial
     noteTable.style.display = "none";
