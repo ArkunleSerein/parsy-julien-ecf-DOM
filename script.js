@@ -39,13 +39,11 @@ document.addEventListener("DOMContentLoaded", function () {
     //* création de la fonction qui va ajouter le color-mode ou le supprimer.
     function activateTable(choice) {
         notationMode = choice;
-
         if (notationMode === "couleur") {
             noteTable.classList.add("color-mode"); // Ajoute le mode couleur
         } else {
             noteTable.classList.remove("color-mode"); // Enlève le mode couleur
-        }
-        
+        }      
         updateTableMode(); // mets à jour le tableau
     }
 
@@ -79,7 +77,6 @@ document.addEventListener("DOMContentLoaded", function () {
     noteInputs.forEach(function (input, index) {
         input.addEventListener("input", function () {
             const noteValue = parseFloat(input.value);
-
             // on associe la note à sa couleur.
             if (!isNaN(noteValue)) {
                 if (noteValue === 1) {
@@ -88,15 +85,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     colorData[index] = "orange";
                 } else if (noteValue === 3) {
                     colorData[index] = "yellow";
-                } else if (noteValue === 4 || noteValue === 5) {
+                } else if (noteValue === 4) {
                     colorData[index] = "green";
                 } else {
                     colorData[index] = "";
                 }
-
                 noteData[index] = noteValue;
                 updateTableMode();
-
                 // On fait passer au champ d'entrée suivant automatiquement
                 const nextInput = noteInputs[index + 1];
                 if (nextInput) {
@@ -108,25 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
             } 
         });
     });
-
     updateTableMode();
-
-    //* On défini la fonction du boutton supprimer
-    noteInputs.forEach((input, index) => {
-        const deleteButton = document.createElement("button");
-        deleteButton.textContent = "Supprimer";
-        deleteButton.addEventListener("click", function () {
-            input.remove();
-            noteData.splice(index, 1);
-            colorData.splice(index, 1);
-            updateTableMode();
-        });
-
-        input.parentNode.appendChild(deleteButton);
-        // style du boutton
-        deleteButton.style.borderRadius = "25px";
-        deleteButton.style.padding = "5px";
-    });
 });
 
 
