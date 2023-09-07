@@ -1,23 +1,31 @@
+// *Création de la fonction du tableau
 document.addEventListener("DOMContentLoaded", function () {
+    // On appelle le boutton "modeButton" avec son ID html qui va définir le choix couleur ou note.
     const modeButton = document.getElementById("modeButton");
+    // On appelle le tableau de note avec son ID html.
     const noteTable = document.getElementById("noteTable");
+    // On appelle .note-input pour lui définir des fonctions par la suite.
     const noteInputs = document.querySelectorAll(".note-input");
 
-    let notationMode = "hidden"; // Le tableau est caché au début
+    // On cache le tableau avant la sélection du mode
+    let notationMode = "hidden"; 
     let isTableVisible = false;
 
-    let noteData = []; // Tableau pour stocker les données des notes
-    let colorData = Array.from({ length: noteInputs.length }, () => "green"); // 
+    let noteData = []; // Crée un tableau pour stocker les données des notes
+    let colorData = Array.from({ length: noteInputs.length }, () => "green"); // On défini la couleur par défaut en vert pour les noteInputs
 
-    // Cacher le tableau au chargement initial
+    // Cache le tableau au chargement initial
     noteTable.style.display = "none";
 
+    // *On crée la fonction pour rendre visible le tableau après avoir choisi le mode et le prompt de choix.
     modeButton.addEventListener("click", function () {
         if (!isTableVisible) {
-            noteTable.style.display = "table"; // Afficher le tableau après le premier clic
+            // Afficher le tableau après le premier clic
+            noteTable.style.display = "table"; 
             isTableVisible = true;
         }
 
+        // On crée le prompt qui va afficher une PopUp avec le choix à effectuer.
         const choice = prompt("Choisissez le mode de notation : 'note' ou 'couleur'");
         if (choice === "note" || choice === "couleur") {
             activateTable(choice);
@@ -26,18 +34,20 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    // *création de la fonction qui va ajouter le color-mode ou le supprimer.
     function activateTable(choice) {
         notationMode = choice;
 
         if (notationMode === "couleur") {
-            noteTable.classList.add("color-mode");
+            noteTable.classList.add("color-mode"); // Ajoute le mode couleur
         } else {
-            noteTable.classList.remove("color-mode");
+            noteTable.classList.remove("color-mode"); // Enlève le mode couleur
         }
-
-        updateTableMode();
+        
+        updateTableMode(); // mets à jour le tableau
     }
 
+    // * Création de la fonction qui mets à jour le tableau selon le choix.
     function updateTableMode() {
         if (notationMode === "couleur") {
             applyColors();
@@ -46,14 +56,15 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    //* Création de la fonction qui va définir les fonctions de base du mode couleur.
     function applyColors() {
         for (let i = 0; i < noteInputs.length; i++) {
             const input = noteInputs[i];
             input.style.backgroundColor = colorData[i] || "green";
-            input.value = ""; // Effacer la valeur en mode couleur
+            input.value = ""; // Efface la valeur de la note en mode couleur
         }
     }
-
+    //* Création de la fonction qui va définir les fonctions de base du mode note.
     function applyNotes() {
         for (let i = 0; i < noteInputs.length; i++) {
             const input = noteInputs[i];
@@ -62,11 +73,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-
+    //* Création de la boucle qui défini la couleur selon la valeur et le passage à la ligne automatique.
     noteInputs.forEach(function (input, index) {
         input.addEventListener("input", function () {
             const noteValue = parseFloat(input.value);
 
+            // on associe la note à sa couleur.
             if (!isNaN(noteValue)) {
                 if (noteValue === 1) {
                     colorData[index] = "red";
@@ -83,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 noteData[index] = noteValue;
                 updateTableMode();
 
-                // Passer au champ d'entrée suivant 
+                // On fait passer au champ d'entrée suivant automatiquement
                 const nextInput = noteInputs[index + 1];
                 if (nextInput) {
                     nextInput.focus();
@@ -100,6 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     updateTableMode();
 
+    //* On défini la fonction du boutton supprimer
     noteInputs.forEach((input, index) => {
         const deleteButton = document.createElement("button");
         deleteButton.textContent = "Supprimer";
@@ -111,6 +124,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         input.parentNode.appendChild(deleteButton);
+        // style du boutton
         deleteButton.style.borderRadius = "25px";
         deleteButton.style.padding = "5px";
     });
